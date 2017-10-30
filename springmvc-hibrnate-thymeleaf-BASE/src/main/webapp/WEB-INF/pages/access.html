@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Access</title>
+</head>
+<body>
+    <h2>Доступ по адресу: <label th:text="${address.street}
+                + ' ' + ${address.house} + ' - ' + ${address.building} + ':'" /> </h2>
+
+    <form action="#" th:object="${entrance}" method="post">
+        Номер парадной: <input type="number" th:field="*{number}" /> <br />
+        Доступ <input type="text" th:field="*{access}" /> <br />
+        <button type="submit">Добавить</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Подъезд</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <div th:if="${entranceList} != null">
+            <tr th:each="entrance : ${entranceList}">
+                <td><label th:text="${entrance.number}" /></td>
+                <td><textarea th:text="${entrance.access}" /></td>
+            </tr>
+        </div>
+
+    </table>
+</body>
+</html>

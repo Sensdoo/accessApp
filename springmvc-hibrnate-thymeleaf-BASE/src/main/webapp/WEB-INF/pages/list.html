@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<h1>
+    Список адресов
+</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Улица</th>
+        <th>Дом</th>
+        <th>Корпус</th>
+        <th>Доступ</th>
+        <th>Изменить</th>
+    </tr>
+    </thead>
+    <tr th:each="address : ${addresses}">
+        <td><label th:text="${address.street}" /></td>
+        <td><label th:text="${address.house}" /></td>
+        <td><label th:text="${address.building}" /></td>
+        <td><a th:href="@{/access/{id}/address(id=${address.id})}">Открыть</a> </td>
+        <td><a th:href="@{/edit/{id}/address(id=${address.id})}"><label th:text="${address.id}" /></a> </td>
+
+    </tr>
+</table>
+<a href="/">Add form</a>
+</body>
+</html>

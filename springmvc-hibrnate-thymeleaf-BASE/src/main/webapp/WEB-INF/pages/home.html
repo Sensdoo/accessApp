@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <h1>
+        TEST FORM
+    </h1>
+
+    <form action="#" th:action="@{/add}" th:object="${address}" method="post">
+        Улица: <input type="text" th:field="*{street}" /> <br />
+        Номер: <input type="number" th:field="*{house}" /> <br />
+        Корпус: <input type="number" th:field="*{building}" /> <br />
+        <button type="submit">Add</button>
+    </form>
+
+    <a href="/list">All addreses</a>
+</body>
+</html>
