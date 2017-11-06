@@ -1,14 +1,15 @@
 package com.sens.try001.dao;
 
+import com.google.common.collect.Lists;
 import com.sens.try001.dao.interfaces.AddressDao;
 import com.sens.try001.model.Address;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -20,34 +21,30 @@ public class AddressDaoImpl implements AddressDao {
 
     private Log LOG = LogFactory.getLog(AddressDaoImpl.class);
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext(unitName = "emf")
+    private EntityManager entityManager;
 
     @Override
-    public Address save(Address address) {
-        if (address != null) {
-            getSession().saveOrUpdate(address);
-            LOG.info("Address saved: " + address);
-        }
-        return address;
+    public void save(Address address) {
+        entityManager.persist(address);
     }
 
     @Override
     public List<Address> findAll() {
-        return getSession().createQuery("select a from Address a").list();
-    }
-
-    @Override
-    public List<Address> findAllWithEntrances() {
-        return getSession().createNamedQuery("Address.findAllWithEntrances").list();
+        return entityManager.createNamedQuery("Address.FindAll").getResultList();
     }
 
     @Override
     public Address findById(long id) {
-        return (Address) getSession().createNamedQuery("Address.findById").setParameter("id", id).uniqueResult();
+        TypedQuery<Address> query =
+                entityManager.createNamedQuery("Address.findById", Address.class);
+        return query.setParameter("id", id).getSingleResult();
     }
 
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
+    @Override
+    public Address findByIdWithEntrances(long id) {
+        TypedQuery<Address> query = entityManager.createNamedQuery("Address.findByIdWithEntrances", Address.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 }

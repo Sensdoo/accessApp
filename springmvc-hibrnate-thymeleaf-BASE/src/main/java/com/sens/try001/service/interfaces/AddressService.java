@@ -8,12 +8,10 @@ import java.util.List;
 /**
  * Created by Sensible on 24.10.2017.
  */
-public interface AddressServise {
+public interface AddressService {
 
-    Address save(Address address);
+    void save(Address address);
     List<Address> findAll();
-    List<Address> findAllWithEntrances();
     Address findById(long id);
-    void updateAddress(Address address);
-    void updateAddress(long id, Entrance entrance);
+    Address findByIdWithEntrances(long id);
 }

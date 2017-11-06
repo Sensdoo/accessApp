@@ -12,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springframework.version>4.3.9.RELEASE</springframework.version>
-        <hibernate.version>5.2.10.Final</hibernate.version>
+        <hibernate.version>5.1.7.Final</hibernate.version>
         <mysql.connector.version>6.0.6</mysql.connector.version>
         <thymeleaf.version>3.0.8.RELEASE</thymeleaf.version>
         <servlet.version>3.1.0</servlet.version>
@@ -51,10 +51,20 @@
             <artifactId>spring-orm</artifactId>
             <version>${springframework.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.11.8.RELEASE</version>
+        </dependency>
         <!--HIBERNATE-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
         <!--MYSQL/H2-->
@@ -85,6 +95,12 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <!--Google lists-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>22.0</version>
         </dependency>
         <!--LOMBOK-->
         <dependency>

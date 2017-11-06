@@ -14,31 +14,41 @@ import java.util.List;
 @Table(name = "comment")
 public class Comment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
-    @Setter
     private long id;
-
-    @Getter
-    @Setter
     private String message;
-
-    @Getter
-    @Setter
-    @ManyToOne
-    @JoinColumn(name = "ENTRANCE_ID")
     private Entrance entrance;
 
-    @Getter
-    @Setter
-    @ManyToMany
-    @JoinTable(name = "user_comment_connector",
-            joinColumns = @JoinColumn(name = "COMMENT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "USER_ID"))
-    private List<User> userList;
-
     public Comment() {
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Column(name = "MESSAGE")
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ENTRANCE_ID")
+    public Entrance getEntrance() {
+        return entrance;
+    }
+
+    public void setEntrance(Entrance entrance) {
+        this.entrance = entrance;
     }
 
     @Override

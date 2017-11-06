@@ -5,7 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Sensible on 23.10.2017.
@@ -18,8 +20,9 @@ public class Entrance {
     private long id;
     private int number;
     private String access;
-    private List<Comment> commentList = new ArrayList<>();
+    private int version;
     private Address address;
+    private Set<Comment> comments = new HashSet<>();
 
     public Entrance() {
     }
@@ -52,18 +55,18 @@ public class Entrance {
     public void setAccess(String access) {
         this.access = access;
     }
-
-    @OneToMany(mappedBy = "entrance", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Comment> getCommentList() {
-        return commentList;
+    
+    @Column(name = "VERSION")
+    public int getVersion() {
+        return version;
     }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     @ManyToOne
-    @JoinColumn(name = "ADDRESS_ID")
+    @JoinColumn(name = "address_id")
     public Address getAddress() {
         return address;
     }
@@ -72,7 +75,23 @@ public class Entrance {
         this.address = address;
     }
 
+    @OneToMany(mappedBy = "entrance", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Comment> getComments() {
+        return comments;
+    }
 
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        comment.setEntrance(this);
+        this.comments.add(comment);
+    }
+
+    public void removeComment(Comment comment) {
+        this.comments.remove(comment);
+    }
 
     @Override
     public String toString() {

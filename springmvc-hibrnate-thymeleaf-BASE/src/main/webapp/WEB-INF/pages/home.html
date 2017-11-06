@@ -9,13 +9,24 @@
         TEST FORM
     </h1>
 
-    <form action="#" th:action="@{/add}" th:object="${address}" method="post">
-        Улица: <input type="text" th:field="*{street}" /> <br />
-        Номер: <input type="number" th:field="*{house}" /> <br />
-        Корпус: <input type="number" th:field="*{building}" /> <br />
-        <button type="submit">Add</button>
-    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Улица</th>
+            <th>Дом</th>
+            <th>Корпус</th>
+            <!--<th>Доступ</th>-->
+            <!--<th>Изменить</th>-->
+        </tr>
+        </thead>
+        <tr th:each="address : ${addresses}">
+            <td><label th:text="${address.street}" /></td>
+            <td><label th:text="${address.house}" /></td>
+            <td><label th:text="${address.building}" /></td>
+            <td><a th:href="@{/access/{id}/address(id=${address.id})}">Доступ</a> </td>
+            <!--<td><a th:href="@{/edit/{id}/address(id=${address.id})}"><label th:text="${address.id}" /></a> </td>-->
+        </tr>
+    </table>
 
-    <a href="/list">All addreses</a>
 </body>
 </html>

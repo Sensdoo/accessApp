@@ -17,9 +17,10 @@ import java.util.Set;
 @Table(name = "address")
 @NamedQueries( {
         @NamedQuery(name = "Address.findById",
-                query = "select distinct a from Address a left join fetch a.entranceSet e where a.id= :id"),
-        @NamedQuery(name = "Address.findAllWithEntrances",
-                query = "select distinct a from Address a left join fetch a.entranceSet e")
+                query = "select distinct a from Address a where a.id = :id"),
+        @NamedQuery(name = "Address.FindAll", query = "select a from Address a"),
+        @NamedQuery(name = "Address.findByIdWithEntrances",
+                query = "select distinct a from Address a left join fetch a.entrances e where a.id = :id")
 })
 public class Address {
 
@@ -28,7 +29,8 @@ public class Address {
     private String Street;
     private int house;
     private int building;
-    private Set<Entrance> entranceSet = new HashSet<>(0);
+    private int version;
+    private Set<Entrance> entrances = new HashSet<>();
 
     public Address() {
     }
@@ -71,22 +73,31 @@ public class Address {
         this.building = building;
     }
 
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<Entrance> getEntranceSet() {
-        return this.entranceSet;
+    @Column(name = "VERSION")
+    public int getVersion() {
+        return version;
     }
 
-    public void setEntranceSet(Set<Entrance> entranceSet) {
-        this.entranceSet = entranceSet;
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Entrance> getEntrances() {
+        return entrances;
+    }
+
+    public void setEntrances(Set<Entrance> entrances) {
+        this.entrances = entrances;
     }
 
     public void addEntrance(Entrance entrance) {
         entrance.setAddress(this);
-        getEntranceSet().add(entrance);
+        this.entrances.add(entrance);
     }
 
     public void removeEntrance(Entrance entrance) {
-        getEntranceSet().remove(entrance);
+        this.entrances.remove(entrance);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.sens.try001.service;
 import com.sens.try001.dao.interfaces.AddressDao;
 import com.sens.try001.model.Address;
 import com.sens.try001.model.Entrance;
-import com.sens.try001.service.interfaces.AddressServise;
+import com.sens.try001.service.interfaces.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,8 @@ import java.util.List;
  */
 
 @Service
-public class AddressServiceImpl implements AddressServise {
+@Transactional
+public class AddressServiceImpl implements AddressService {
 
 
     @Autowired
@@ -23,46 +24,25 @@ public class AddressServiceImpl implements AddressServise {
 
     @Override
     @Transactional
-    public Address save(Address address) {
-        return addressDao.save(address);
+    public void save(Address address) {
+        addressDao.save(address);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Address> findAll() {
         return addressDao.findAll();
     }
 
     @Override
-    @Transactional
-    public List<Address> findAllWithEntrances() {
-        return addressDao.findAllWithEntrances();
-    }
-
-    @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Address findById(long id) {
         return addressDao.findById(id);
     }
 
     @Override
-    @Transactional
-    public void updateAddress(Address address) {
-        Address updateAddress = addressDao.findById(address.getId());
-        if (updateAddress != null) {
-            updateAddress.setStreet(address.getStreet());
-            updateAddress.setHouse(address.getHouse());
-            updateAddress.setBuilding(address.getBuilding());
-            updateAddress.setEntranceSet(address.getEntranceSet());
-        }
+    public Address findByIdWithEntrances(long id) {
+        return addressDao.findByIdWithEntrances(id);
     }
 
-    @Override
-    @Transactional
-    public void updateAddress(long id, Entrance entrance) {
-        Address address = addressDao.findById(id);
-        entrance.setAddress(address);
-        address.addEntrance(entrance);
-        updateAddress(address);
-    }
 }
