@@ -8,11 +8,11 @@
     <h2>Доступ по адресу: <label th:text="${address.street}
                 + ' ' + ${address.house} + ' - ' + ${address.building} + ':'" /> </h2>
 
-    <!--<form action="#" th:object="${entrance}" method="post">-->
-        <!--Номер парадной: <input type="number" th:field="*{number}" /> <br />-->
-        <!--Доступ <input type="text" th:field="*{access}" /> <br />-->
-        <!--<button type="submit">Добавить</button>-->
-    <!--</form>-->
+    <form action="#" th:object="${entrance}" method="post">
+        Номер парадной: <input type="number" th:field="*{number}" /> <br />
+        Доступ <input type="text" th:field="*{access}" /> <br />
+        <button type="submit">Добавить</button>
+    </form>
 
     <table>
         <thead>
@@ -25,11 +25,11 @@
             <tr th:each="entrance : ${entrances}">
                 <td><label th:text="${entrance.number}" /></td>
                 <td><label th:text="${entrance.access}" /></td>
-                <td><a th:href="@{/comments/{id}/entrance(id=${entrance.id})}">Комментарии</a> </td>
+                <td><a th:href="@{/findEntrance/{id}/comments(id=${entrance.id})}">Комментарии</a> </td>
             </tr>
         </div>
-
     </table>
+
     <br />
     <a href="/">Домой</a>
 </body>

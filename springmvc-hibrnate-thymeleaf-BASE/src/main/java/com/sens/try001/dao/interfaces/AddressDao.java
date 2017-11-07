@@ -9,9 +9,7 @@ import java.util.List;
  * Created by Sensible on 23.10.2017.
  */
 
-@EnableJpaRepositories
 public interface AddressDao {
-
     void save(Address address);
     List<Address> findAll();
     Address findById(long id);

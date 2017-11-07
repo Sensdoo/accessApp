@@ -15,6 +15,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "entrance")
+@NamedQueries( {
+        @NamedQuery(name = "Entrance.findAll", query = "select e from Entrance e"),
+        @NamedQuery(name = "Entrance.findById", query = "select distinct e from Entrance e where e.id = :id"),
+        @NamedQuery(name = "Entrance.count", query = "select count(e) from Entrance e"),
+        @NamedQuery(name = "Entrance.findByIdWithComments",
+                query = "select e from Entrance e left join fetch e.comments c where e.id = :id")
+})
 public class Entrance {
 
     private long id;
@@ -22,13 +29,13 @@ public class Entrance {
     private String access;
     private int version;
     private Address address;
-    private Set<Comment> comments = new HashSet<>();
+    private List<Comment> comments = new ArrayList<>();
 
     public Entrance() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public long getId() {
         return id;
@@ -76,11 +83,11 @@ public class Entrance {
     }
 
     @OneToMany(mappedBy = "entrance", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 

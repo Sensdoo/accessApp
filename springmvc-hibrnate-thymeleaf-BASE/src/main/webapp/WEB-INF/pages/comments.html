@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Access</title>
+</head>
+<body>
+<h2>Комментарии к адресу: <label th:text="${entrance.address.street} + ' ' + ${entrance.address.house} +
+                                '-'+ ${entrance.address.building} + ', подъезд #' + ${entrance.number}" /> </h2>
+
+<form action="#" th:object="${comment}" method="post">
+Сообщение: <input type="text" th:field="*{message}" />
+<button type="submit">Отправить</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Комментарии</th>
+        <th></th>
+    </tr>
+    </thead>
+    <div th:if="${comments} != null">
+        <tr th:each="comment : ${comments}">
+            <td><label th:text="${comment.message}" /></td>
+            <!--<td><label th:text="${comment.message}" /></td>-->
+        </tr>
+    </div>
+</table>
+
+<br />
+<a th:href="@{/findAddress/{id}/access(id=${entrance.address.id})}">Назад</a>
+<a href="/">Домой</a>
+</body>
+</html>

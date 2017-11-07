@@ -12,17 +12,21 @@ import java.util.List;
 
 @Entity
 @Table(name = "comment")
+@NamedQueries({
+        @NamedQuery(name = "Comment.count", query = "select count(c) from Comment c")
+})
 public class Comment {
 
     private long id;
     private String message;
+    private int version;
     private Entrance entrance;
 
     public Comment() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public long getId() {
         return id;

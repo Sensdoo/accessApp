@@ -23,7 +23,7 @@
             <td><label th:text="${address.street}" /></td>
             <td><label th:text="${address.house}" /></td>
             <td><label th:text="${address.building}" /></td>
-            <td><a th:href="@{/access/{id}/address(id=${address.id})}">Доступ</a> </td>
+            <td><a th:href="@{/findAddress/{id}/access(id=${address.id})}">Доступ</a> </td>
             <!--<td><a th:href="@{/edit/{id}/address(id=${address.id})}"><label th:text="${address.id}" /></a> </td>-->
         </tr>
     </table>

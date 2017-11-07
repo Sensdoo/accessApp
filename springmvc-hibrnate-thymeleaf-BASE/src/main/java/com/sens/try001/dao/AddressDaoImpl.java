@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Sensible on 23.10.2017.
  */
 
-@Repository
+@Repository("addressDao")
 public class AddressDaoImpl implements AddressDao {
 
     private Log LOG = LogFactory.getLog(AddressDaoImpl.class);
@@ -26,7 +26,7 @@ public class AddressDaoImpl implements AddressDao {
 
     @Override
     public void save(Address address) {
-        entityManager.persist(address);
+        entityManager.merge(address);
     }
 
     @Override

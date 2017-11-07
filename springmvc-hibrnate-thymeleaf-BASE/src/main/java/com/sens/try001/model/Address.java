@@ -30,13 +30,13 @@ public class Address {
     private int house;
     private int building;
     private int version;
-    private Set<Entrance> entrances = new HashSet<>();
+    private List<Entrance> entrances = new ArrayList<>();
 
     public Address() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public long getId() {
         return id;
@@ -83,11 +83,11 @@ public class Address {
     }
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<Entrance> getEntrances() {
+    public List<Entrance> getEntrances() {
         return entrances;
     }
 
-    public void setEntrances(Set<Entrance> entrances) {
+    public void setEntrances(List<Entrance> entrances) {
         this.entrances = entrances;
     }
 
