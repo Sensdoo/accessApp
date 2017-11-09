@@ -5,6 +5,7 @@ import com.sens.try001.model.Comment;
 import com.sens.try001.service.interfaces.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -23,7 +24,9 @@ public class CommentServiceImpl implements CommentService {
         commentDao.save(comment);
     }
 
-    @Transactional(readOnly = true)
+
+    //транзакция для запроса не будет создана
+    @Transactional(propagation = Propagation.NEVER)
     @Override
     public Long count() {
         return commentDao.count();

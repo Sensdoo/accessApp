@@ -50,7 +50,7 @@ public class AddressController {
     public String addAccess(@PathVariable long id, @ModelAttribute("entrance") Entrance entrance, Model model) {
         Address address = addressService.findByIdWithEntrances(id);
 
-        if ((entrance.getAccess() != null || entrance.getAccess() != "") & entrance.getNumber() < 1) {
+        if ((entrance.getAccess() != null & entrance.getAccess() != "") & entrance.getNumber() > 0) {
             Long entranceId = entranceService.count();
             entrance.setId(++entranceId);
             address.addEntrance(entrance);

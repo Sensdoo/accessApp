@@ -5,6 +5,7 @@ import com.sens.try001.model.Entrance;
 import com.sens.try001.service.interfaces.EntranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -43,7 +44,8 @@ public class EntranceServiceImpl implements EntranceService {
         return entranceDao.findByIdWithComments(id);
     }
 
-    @Transactional(readOnly = true)
+    //транзакция для запроса не будет создана
+    @Transactional(propagation = Propagation.NEVER)
     @Override
     public Long count() {
         return entranceDao.count();

@@ -2,35 +2,75 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <title>Access</title>
 </head>
 <body>
+<div class="container">
+
     <h2>Доступ по адресу: <label th:text="${address.street}
-                + ' ' + ${address.house} + ' - ' + ${address.building} + ':'" /> </h2>
+                + ' ' + ${address.house} + '/' + ${address.building} + ':'"/></h2>
 
-    <form action="#" th:object="${entrance}" method="post">
-        Номер парадной: <input type="number" th:field="*{number}" /> <br />
-        Доступ <input type="text" th:field="*{access}" /> <br />
-        <button type="submit">Добавить</button>
-    </form>
-
-    <table>
-        <thead>
-        <tr>
-            <th>Подъезд</th>
-            <th>Описание</th>
-        </tr>
-        </thead>
-        <div th:if="${entrances} != null">
-            <tr th:each="entrance : ${entrances}">
-                <td><label th:text="${entrance.number}" /></td>
-                <td><label th:text="${entrance.access}" /></td>
-                <td><a th:href="@{/findEntrance/{id}/comments(id=${entrance.id})}">Комментарии</a> </td>
-            </tr>
+    <div class="row contect">
+        <div class="col-sm-12">
+            <form action="#" th:object="${entrance}" method="post">
+                <div class="col-sm-6">
+                    <div class="form group">
+                        <table class="table">
+                            <thead></thead>
+                            <tr>
+                                <td>
+                                    Номер парадной:
+                                </td>
+                                <td>
+                                    <input type="number" th:field="*{number}"/>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Доступ:
+                                </td>
+                                <td>
+                                    <input type="textarea" th:field="*{access}"/>
+                                </td>
+                                <td>
+                                    <button class="btn btn-success" type="submit">Добавить</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+            <br/>
+            <div class="col-sm-10">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Подъезд</th>
+                        <th>Описание</th>
+                    </tr>
+                    </thead>
+                    <div th:if="${entrances} != null">
+                        <tr th:each="entrance : ${entrances}">
+                            <td><label th:text="${entrance.number}"/></td>
+                            <td><label th:text="${entrance.access}"/></td>
+                            <td><a th:href="@{/findEntrance/{id}/comments(id=${entrance.id})}">Комментарии</a></td>
+                        </tr>
+                    </div>
+                </table>
+            </div>
         </div>
-    </table>
-
-    <br />
+    </div>
+    <br/>
     <a href="/">Домой</a>
+</div>
 </body>
 </html>
