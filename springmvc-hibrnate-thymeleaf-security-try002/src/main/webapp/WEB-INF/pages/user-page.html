@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
+<head>
+    <!--<meta charset="UTF-8">-->
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!--<div th:replace="fragments/header :: header-css" />-->
+</head>
+<body>
+<!--<div th:replace="fragments/header :: header" />-->
+
+<div class="container">
+    <div class="container text-center">
+        <div class="row content">
+            <div class="col-sm-12">
+                <h3>Все записи</h3>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="info">
+                        <th>Id</th>
+                        <th>Улица</th>
+                        <th>Дом</th>
+                        <th>Корпус</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="address : ${addresses}">
+                        <td><label th:text="${address.id}" /></td>
+                        <td><label th:text="${address.street}" /></td>
+                        <td><label th:text="${address.house}" /></td>
+                        <td><label th:text="${address.building}" /></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div> <br />
+    <a th:href="@{/logout}">Sign Out</a>
+    <br />
+    <br />
+    <br />
+    <div sec:authorize="isAuthenticated()">
+        Logged user: <span sec:authentication="name"></span>
+        | Roles: <span sec:authentication="principal.authorities"></span>
+    </div>
+
+</div>
+<!--<div th:replace="fragments/footer :: footer" />-->
+</body>
+</html>
