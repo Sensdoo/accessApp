@@ -21,20 +21,26 @@ import java.util.Set;
 })
 public class Address {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
-    private String Street;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Street street;
+
+    @Column(name = "house")
     private int house;
+
+    @Column(name = "BUILDING")
     private int building;
-    private int version;
-//    private List<Entrance> entrances = new ArrayList<>();
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Entrance> entrances = new ArrayList<>();
 
     public Address() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     public long getId() {
         return id;
     }
@@ -43,16 +49,6 @@ public class Address {
         this.id = id;
     }
 
-    @Column(name = "STREET")
-    public String getStreet() {
-        return Street;
-    }
-
-    public void setStreet(String street) {
-        Street = street;
-    }
-
-    @Column(name = "HOUSE")
     public int getHouse() {
         return house;
     }
@@ -61,7 +57,6 @@ public class Address {
         this.house = house;
     }
 
-    @Column(name = "BUILDING")
     public int getBuilding() {
         return building;
     }
@@ -70,16 +65,6 @@ public class Address {
         this.building = building;
     }
 
-    @Column(name = "VERSION")
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-//    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
 //    public List<Entrance> getEntrances() {
 //        return entrances;
 //    }
@@ -100,7 +85,7 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "Street: '" + Street + '\'' +
+                "Street: '" + street.getName() + '\'' +
                 ", house: " + house +
                 ", building: " + building +
                 '}';

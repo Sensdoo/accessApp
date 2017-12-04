@@ -10,7 +10,10 @@ import java.util.Collection;
 @Entity
 @Table(name = "user")
 @NamedQueries( {
-        @NamedQuery(name = "User.findByLogin", query = "select distinct u from User u where u.login = :login")
+        @NamedQuery(name = "User.findByLogin",
+                query = "select distinct u from User u where u.login = :login"),
+//        @NamedQuery(name = "User.findByLoginWithRoles",
+//                query = "select distinct u from User u left join fetch u.roles r where u.login = :login")
 })
 public class User {
 

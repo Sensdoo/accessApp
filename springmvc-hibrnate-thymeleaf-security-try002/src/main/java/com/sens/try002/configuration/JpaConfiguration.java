@@ -2,6 +2,7 @@ package com.sens.try002.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -23,6 +24,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableJpaRepositories
 @PropertySource(value = "classpath:application.properties")
+@ComponentScan(basePackages = "com.sens.try002")
 public class JpaConfiguration {
 
     @Autowired

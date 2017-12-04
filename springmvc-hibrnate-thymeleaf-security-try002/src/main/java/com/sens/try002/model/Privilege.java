@@ -9,6 +9,9 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "privilege")
+@NamedQueries( {
+        @NamedQuery(name = "Privilege.findByName", query = "select distinct p from Privilege p where p.name = :name")
+})
 public class Privilege {
 
     @Id
@@ -18,9 +21,9 @@ public class Privilege {
 
     @Column(name = "name")
     private String name;
-
-    @ManyToMany(mappedBy = "privileges")
-    private Collection<Role> roles;
+//
+//    @ManyToMany(mappedBy = "privileges")
+//    private Collection<Role> roles;
 
     public Privilege() {
     }
@@ -40,12 +43,12 @@ public class Privilege {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
+//
+//    public Collection<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Collection<Role> roles) {
+//        this.roles = roles;
+//    }
 }

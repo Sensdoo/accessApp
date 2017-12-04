@@ -1,5 +1,6 @@
 package com.sens.try002.service;
 
+import com.sens.try002.dao.RoleRepository;
 import com.sens.try002.dao.UserRepository;
 import com.sens.try002.exception.EmailExistsException;
 import com.sens.try002.model.Role;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -38,14 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userDto.getLastName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setLogin(userDto.getLogin());
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        Role role = new Role();
-        role.setName("role_user");
-        role.setUsers(users);
-        List<Role> roles = new ArrayList<>();
-        roles.add(role);
-        user.setRoles(roles);
+        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         return userRepository.save(user);
     }
 

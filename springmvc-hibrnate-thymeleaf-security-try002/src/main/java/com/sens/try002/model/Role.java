@@ -9,6 +9,12 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "role")
+@NamedQueries( {
+        @NamedQuery(name = "Role.findByName",
+                query = "select distinct r from Role r where r.name = :name"),
+//        @NamedQuery(name = "Role.findByNameWithPrivileges",
+//                query = "select distinct r from Role r left join fetch r.privileges p where  r.name = :name")
+})
 public class Role {
 
     @Id
@@ -22,11 +28,11 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
 
-    @ManyToMany
-    @JoinTable(name = "roles_privileges",
-               joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
+//    @ManyToMany
+//    @JoinTable(name = "roles_privileges",
+//               joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+//               inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+//    private Collection<Privilege> privileges;
 
     public Role() {
     }
@@ -55,11 +61,11 @@ public class Role {
         this.users = users;
     }
 
-    public Collection<Privilege> getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(Collection<Privilege> privileges) {
-        this.privileges = privileges;
-    }
+//    public Collection<Privilege> getPrivileges() {
+//        return privileges;
+//    }
+//
+//    public void setPrivileges(Collection<Privilege> privileges) {
+//        this.privileges = privileges;
+//    }
 }
