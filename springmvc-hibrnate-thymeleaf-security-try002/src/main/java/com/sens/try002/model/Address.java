@@ -16,6 +16,8 @@ import java.util.Set;
         @NamedQuery(name = "Address.findById",
                 query = "select distinct a from Address a where a.id = :id"),
         @NamedQuery(name = "Address.findAll", query = "select a from Address a"),
+        @NamedQuery(name = "Address.findAllByStreetName",
+                query = "select a from Address a left join  fetch a.street s where s.name = :name")
 //        @NamedQuery(name = "Address.findByIdWithEntrances",
 //                query = "select distinct a from Address a left join fetch a.entrances e where a.id = :id")
 })
@@ -26,8 +28,9 @@ public class Address {
     @Column(name = "id")
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Street street;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "street_id")
+    public Street street;
 
     @Column(name = "house")
     private int house;
@@ -65,22 +68,22 @@ public class Address {
         this.building = building;
     }
 
-//    public List<Entrance> getEntrances() {
-//        return entrances;
-//    }
-//
-//    public void setEntrances(List<Entrance> entrances) {
-//        this.entrances = entrances;
-//    }
-//
-//    public void addEntrance(Entrance entrance) {
-//        entrance.setAddress(this);
-//        this.entrances.add(entrance);
-//    }
-//
-//    public void removeEntrance(Entrance entrance) {
-//        this.entrances.remove(entrance);
-//    }
+    public List<Entrance> getEntrances() {
+        return entrances;
+    }
+
+    public void setEntrances(List<Entrance> entrances) {
+        this.entrances = entrances;
+    }
+
+    public void addEntrance(Entrance entrance) {
+        entrance.setAddress(this);
+        this.entrances.add(entrance);
+    }
+
+    public void removeEntrance(Entrance entrance) {
+        this.entrances.remove(entrance);
+    }
 
     @Override
     public String toString() {

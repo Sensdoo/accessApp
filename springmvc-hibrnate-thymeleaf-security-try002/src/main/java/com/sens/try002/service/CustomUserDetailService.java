@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Sensible on 01.12.2017.
  */
 
-@Service("userDetailService1")
+@Service("userDetailService")
 @Transactional
 public class CustomUserDetailService implements UserDetailsService {
 

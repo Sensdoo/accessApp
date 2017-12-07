@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+
+<div th:replace="fragments/header :: header" />
+
+<div class="container">
+    <h3>Наставников</h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr class="info">
+            <th>Id</th>
+            <th>Дом</th>
+            <th>Корпус</th>
+        </tr>
+        </thead>
+        <tr th:each="address : ${addresses}">
+            <td><label th:text="${address.id}" /></td>
+            <td><label th:text="${address.house}" /></td>
+            <td><label th:text="${address.building}" /></td>
+        </tr>
+    </table>
+</div>
+<!--/.container-->
+
+<div th:replace="fragments/footer :: footer" />
+
+</body>
+</html>

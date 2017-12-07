@@ -25,8 +25,6 @@ public class WebConfiguration  {
     @Autowired
     private ApplicationContext applicationContext;
 
-
-
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();

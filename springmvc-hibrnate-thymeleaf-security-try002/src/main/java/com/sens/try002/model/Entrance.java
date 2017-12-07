@@ -19,18 +19,27 @@ import java.util.List;
 //})
 public class Entrance {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private long id;
+
+    @Column(name = "NUMBER")
     private int number;
+
+    @Column(name = "ACCESS")
     private String access;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
     private Address address;
+
+    @OneToMany(mappedBy = "entrance", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     public Entrance() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     public long getId() {
         return id;
     }
@@ -39,7 +48,6 @@ public class Entrance {
         this.id = id;
     }
 
-    @Column(name = "NUMBER")
     public int getNumber() {
         return number;
     }
@@ -48,7 +56,6 @@ public class Entrance {
         this.number = number;
     }
 
-    @Column(name = "ACCESS")
     public String getAccess() {
         return access;
     }
@@ -57,8 +64,6 @@ public class Entrance {
         this.access = access;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
     public Address getAddress() {
         return address;
     }
@@ -67,7 +72,6 @@ public class Entrance {
         this.address = address;
     }
 
-    @OneToMany(mappedBy = "entrance", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Comment> getComments() {
         return comments;
     }

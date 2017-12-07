@@ -1,6 +1,7 @@
 package com.sens.try002.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Engineers on 04.12.2017.
@@ -18,8 +19,8 @@ public class Street {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "street", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Address address;
+    @OneToMany(mappedBy = "street", cascade = CascadeType.ALL)
+    private List<Address> addresses;
 
     public Street() {
     }
@@ -40,11 +41,11 @@ public class Street {
         this.name = name;
     }
 
-    public Address getAddress() {
-        return address;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 }

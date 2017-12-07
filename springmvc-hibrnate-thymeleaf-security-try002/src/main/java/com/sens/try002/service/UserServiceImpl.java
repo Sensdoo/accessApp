@@ -31,8 +31,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Transactional
     @Override
+    @Transactional(readOnly = true)
     public User registrationNewUserAccount(UserDto userDto) throws EmailExistsException {
         if (loginExists(userDto.getLogin())) {
             throw  new EmailExistsException("There is an account with that email address: " + userDto.getLogin());
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userDto.getLastName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setLogin(userDto.getLogin());
-        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+        user.setRoles(Arrays.asList(roleRepository.findByName("USER")));
         return userRepository.save(user);
     }
 

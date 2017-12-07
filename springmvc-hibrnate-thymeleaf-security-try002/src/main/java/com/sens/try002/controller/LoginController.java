@@ -19,6 +19,6 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginPost() {
-        return "user-page";
+        return "home";
     }
 }
