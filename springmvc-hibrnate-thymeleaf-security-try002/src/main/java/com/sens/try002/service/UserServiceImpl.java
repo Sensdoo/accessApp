@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -32,7 +33,6 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    @Transactional(readOnly = true)
     public User registrationNewUserAccount(UserDto userDto) throws EmailExistsException {
         if (loginExists(userDto.getLogin())) {
             throw  new EmailExistsException("There is an account with that email address: " + userDto.getLogin());

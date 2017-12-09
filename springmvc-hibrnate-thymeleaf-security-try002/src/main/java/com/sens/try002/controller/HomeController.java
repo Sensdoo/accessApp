@@ -1,6 +1,6 @@
 package com.sens.try002.controller;
 
-import com.sens.try002.dao.AddressDao;
+import com.sens.try002.dao.AddressRepository;
 import com.sens.try002.exception.EmailExistsException;
 import com.sens.try002.model.Address;
 import com.sens.try002.model.User;
@@ -28,48 +28,48 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    private AddressDao addressDao;
+    private AddressRepository addressRepository;
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/user-page", method = RequestMethod.GET)
     public String user(Model model) {
-        List<Address> addressList = addressDao.findAll();
+        List<Address> addressList = addressRepository.findAll();
         model.addAttribute("addresses", addressList);
         return "user-page";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(WebRequest request, Model model) {
-        UserDto userDto = new UserDto();
-        model.addAttribute("user", userDto);
-        return "registration";
-    }
-
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto,
-                                            BindingResult result, WebRequest request, Errors errors) {
-        User registered = new User();
-        if (!result.hasErrors()) {
-            registered = createUserAccount(userDto);
-        }
-        if (registered == null) {
-            result.rejectValue("login", "Registration error");
-        }
-        if (result.hasErrors()) {
-            return new ModelAndView("registration", "user", userDto);
-        } else {
-            return new ModelAndView("login", "user", userDto);
-        }
-    }
-
-    private User createUserAccount(UserDto userDto) {
-        User registered = null;
-        try {
-            registered = userService.registrationNewUserAccount(userDto);
-        } catch (EmailExistsException e) {
-            return null;
-        }
-        return registered;
-    }
+//    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+//    public String registration(WebRequest request, Model model) {
+//        UserDto userDto = new UserDto();
+//        model.addAttribute("user", userDto);
+//        return "registration";
+//    }
+//
+//    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+//    public ModelAndView registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto,
+//                                            BindingResult result, WebRequest request, Errors errors) {
+//        User registered = new User();
+//        if (!result.hasErrors()) {
+//            registered = createUserAccount(userDto);
+//        }
+//        if (registered == null) {
+//            result.rejectValue("login", "Registration error");
+//        }
+//        if (result.hasErrors()) {
+//            return new ModelAndView("registration", "user", userDto);
+//        } else {
+//            return new ModelAndView("login", "user", userDto);
+//        }
+//    }
+//
+//    private User createUserAccount(UserDto userDto) {
+//        User registered = null;
+//        try {
+//            registered = userService.registrationNewUserAccount(userDto);
+//        } catch (EmailExistsException e) {
+//            return null;
+//        }
+//        return registered;
+//    }
 }

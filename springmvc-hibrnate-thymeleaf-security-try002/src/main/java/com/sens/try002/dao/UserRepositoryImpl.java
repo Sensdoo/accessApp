@@ -14,7 +14,7 @@ import javax.persistence.PersistenceUnit;
  * Created by Sensible on 29.11.2017.
  */
 
-@Repository("userReppository")
+@Repository("userRepository")
 public class UserRepositoryImpl implements UserRepository {
 
     private Log LOG = LogFactory.getLog(UserRepository.class);

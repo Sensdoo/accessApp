@@ -9,7 +9,9 @@ import java.util.List;
  */
 
 public interface AddressRepository {
+    void save(Address address);
     List<Address> findAll();
     List<Address> findAllByStreetName(String streetName);
     Address findById(Long id);
+    Address findByIdWithEntrances(Long id);
 }

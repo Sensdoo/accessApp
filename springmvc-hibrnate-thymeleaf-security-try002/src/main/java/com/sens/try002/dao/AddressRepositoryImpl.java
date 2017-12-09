@@ -17,6 +17,12 @@ public class AddressRepositoryImpl implements AddressRepository {
     @PersistenceContext(unitName = "emf")
     private EntityManager entityManager;
 
+
+    @Override
+    public void save(Address address) {
+        entityManager.merge(address);
+    }
+
     public List<Address> findAll() {
         return entityManager.createNamedQuery("Address.findAll").getResultList();
     }
@@ -30,6 +36,12 @@ public class AddressRepositoryImpl implements AddressRepository {
     @Override
     public Address findById(Long id) {
         return entityManager.createNamedQuery("Address.findById", Address.class)
+                .setParameter("id", id).getSingleResult();
+    }
+
+    @Override
+    public Address findByIdWithEntrances(Long id) {
+        return entityManager.createNamedQuery("Address.findByIdWithEntrances", Address.class)
                 .setParameter("id", id).getSingleResult();
     }
 

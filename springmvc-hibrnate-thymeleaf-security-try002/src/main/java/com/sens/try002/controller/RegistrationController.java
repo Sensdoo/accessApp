@@ -1,5 +1,6 @@
 package com.sens.try002.controller;
 
+import com.sens.try002.dao.AddressRepository;
 import com.sens.try002.dao.AddressRepositoryImpl;
 import com.sens.try002.exception.EmailExistsException;
 import com.sens.try002.model.Address;
@@ -28,13 +29,13 @@ import java.util.List;
 public class RegistrationController {
 
     @Autowired
-    private AddressRepositoryImpl addressDao;
+    private AddressRepository addressRepository;
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String user(Model model) {
-        List<Address> addressList = addressDao.findAll();
+        List<Address> addressList = addressRepository.findAll();
         model.addAttribute("addresses", addressList);
         return "home";
     }

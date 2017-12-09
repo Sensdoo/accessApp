@@ -10,13 +10,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "entrance")
-//@NamedQueries( {
-//        @NamedQuery(name = "Entrance.findAll", query = "select e from Entrance e"),
-//        @NamedQuery(name = "Entrance.findById", query = "select distinct e from Entrance e where e.id = :id"),
-//        @NamedQuery(name = "Entrance.count", query = "select count(e) from Entrance e"),
-//        @NamedQuery(name = "Entrance.findByIdWithComments",
-//                query = "select e from Entrance e left join fetch e.comments c where e.id = :id")
-//})
+@NamedQueries( {
+        @NamedQuery(name = "Entrance.findAll", query = "select e from Entrance e"),
+        @NamedQuery(name = "Entrance.findById", query = "select distinct e from Entrance e where e.id = :id"),
+        @NamedQuery(name = "Entrance.findByNumber", query = "select distinct e from Entrance e where e.number = :number"),
+        @NamedQuery(name = "Entrance.findByIdWithComments",
+                query = "select e from Entrance e left join fetch e.comments c where e.id = :id")
+})
 public class Entrance {
 
     @Id
@@ -29,6 +29,9 @@ public class Entrance {
 
     @Column(name = "ACCESS")
     private String access;
+
+    @Column(name = "KEY_NUNBER")
+    private int key;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
@@ -62,6 +65,14 @@ public class Entrance {
 
     public void setAccess(String access) {
         this.access = access;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 
     public Address getAddress() {

@@ -17,9 +17,9 @@ import java.util.Set;
                 query = "select distinct a from Address a where a.id = :id"),
         @NamedQuery(name = "Address.findAll", query = "select a from Address a"),
         @NamedQuery(name = "Address.findAllByStreetName",
-                query = "select a from Address a left join  fetch a.street s where s.name = :name")
-//        @NamedQuery(name = "Address.findByIdWithEntrances",
-//                query = "select distinct a from Address a left join fetch a.entrances e where a.id = :id")
+                query = "select a from Address a left join  fetch a.street s where s.name = :name"),
+        @NamedQuery(name = "Address.findByIdWithEntrances",
+                query = "select distinct a from Address a left join fetch a.entrances e where a.id = :id")
 })
 public class Address {
 

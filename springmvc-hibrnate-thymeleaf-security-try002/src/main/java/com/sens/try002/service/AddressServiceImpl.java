@@ -20,6 +20,11 @@ public class AddressServiceImpl implements AddressService {
     private AddressRepository addressRepository;
 
     @Override
+    public void save(Address address) {
+        addressRepository.save(address);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Address> findAll() {
         return addressRepository.findAll();
@@ -35,5 +40,11 @@ public class AddressServiceImpl implements AddressService {
     @Transactional(readOnly = true)
     public Address findById(Long id) {
         return addressRepository.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Address findByIdWithEntrances(Long id) {
+        return addressRepository.findByIdWithEntrances(id);
     }
 }
