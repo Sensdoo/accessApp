@@ -6,6 +6,7 @@ import com.sens.try002.service.AddressService;
 import com.sens.try002.service.EntranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,36 +48,46 @@ public class AddressController {
     }
 
     @RequestMapping(value = "/address/{id}", method = RequestMethod.POST)
-    public ModelAndView addEntrance(@PathVariable("id") Long id, @ModelAttribute("entrance") Entrance entrance) {
+    public ModelAndView addEntrance(@PathVariable("id") Long id,
+                                    @ModelAttribute("entrance") Entrance entrance,
+                                    BindingResult result) {
+        if (result.hasErrors()) {
+            return new ModelAndView("access");
+        }
         ModelAndView mav = new ModelAndView();
         Address address = addressService.findByIdWithEntrances(id);
+        String message = null;
 
-        if ((entrance.getAccess() != null & entrance.getAccess() != "") & entrance.getNumber() > 0) {
-            if (address.getEntrances() != null && address.getEntrances().size() > 0) {
-                for (Entrance e : address.getEntrances()) {
-                    if (e.getNumber() == entrance.getNumber()) {
-                        e.setAccess(entrance.getAccess());
-                        e.setKey(entrance.getKey());
-                        addressService.save(address);
-                    } else {
-                        Entrance existEntrance = entranceService.save(entrance);
-                        address.addEntrance(existEntrance);
-                        addressService.save(address);
-                    }
+        //если поля не пусты
+//        if ((entrance.getAccess() != null & entrance.getAccess() != "") & entrance.getNumber() > 0) {
+            //если коллекция парадных не пуста
+        if (address.getEntrances() != null && address.getEntrances().size() > 0) {
+            for (Entrance e : address.getEntrances()) {
+                //если такая парадная уже есть
+                if (e.getNumber() == entrance.getNumber()) {
+                    message = "Entrance already exist";
+                } else {
+                    Long entranceId = entranceService.count();
+                    entrance.setId(++entranceId);
+                    address.addEntrance(entrance);
+                    addressService.save(address);
                 }
-            } else {
-                address.addEntrance(entrance);
-                entranceService.save(entrance);
-                addressService.save(address);
             }
-            List<Entrance> entrances = address.getEntrances();
-            mav.addObject("entrances", entrances);
         } else {
-            mav.addObject("entrances", null);
+            Long entranceId = entranceService.count();
+            entrance.setId(++entranceId);
+            address.addEntrance(entrance);
+            addressService.save(address);
         }
 
-        mav.addObject("address", address);
+        List<Entrance> entrances = address.getEntrances();
+        mav.addObject("entrances", entrances);
+//        } else {
+//            mav.addObject("entrances", null);
+//        }
 
+        mav.addObject("address", address);
+        mav.addObject("message", message);
         mav.setViewName("access");
         return mav;
     }

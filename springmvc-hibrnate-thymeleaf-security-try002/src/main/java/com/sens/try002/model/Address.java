@@ -38,7 +38,7 @@ public class Address {
     @Column(name = "BUILDING")
     private int building;
 
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "address", orphanRemoval = true)
     private List<Entrance> entrances = new ArrayList<>();
 
     public Address() {

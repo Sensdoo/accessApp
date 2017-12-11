@@ -20,6 +20,7 @@ public class AddressServiceImpl implements AddressService {
     private AddressRepository addressRepository;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void save(Address address) {
         addressRepository.save(address);
     }

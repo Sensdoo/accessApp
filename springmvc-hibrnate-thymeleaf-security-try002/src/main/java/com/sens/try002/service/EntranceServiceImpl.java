@@ -51,4 +51,9 @@ public class EntranceServiceImpl implements EntranceService {
     public List<Entrance> findAll() {
         return entranceRepository.findAll();
     }
+
+    @Override
+    public Long count() {
+        return entranceRepository.count();
+    }
 }

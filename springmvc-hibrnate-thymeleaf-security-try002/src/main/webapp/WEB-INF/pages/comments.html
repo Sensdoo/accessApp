@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+
+<div th:replace="fragments/header :: header" />
+    <div class="container">
+
+        <h2>Комментарии к адресу: <label th:text="${entrance.address.street.name} + ' ' + ${entrance.address.house} +
+                                '/'+ ${entrance.address.building} + ', подъезд #' + ${entrance.number}" /> </h2>
+
+        <div class="row contect">
+            <div class="col-sm-12">
+                <form action="#" th:object="${comment}" method="post">
+                    <div class="col-sm-6">
+                        <div class="form group">
+                            <table class="table">
+                                <thead></thead>
+                                <tr>
+                                    <td>
+                                        Сообщение:
+                                    </td>
+                                    <td>
+                                        <input type="text" style="size: 100px" th:field="*{message}" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success" type="submit">Отправить</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <br />
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Комментарии</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <div th:if="${comments} != null">
+                        <tr th:each="comment : ${comments}">
+                            <td><label th:text="${comment.message}" style="size: 100px"/></td>
+                            <!--<td><label th:text="${comment.message}" /></td>-->
+                        </tr>
+                    </div>
+                </table>
+            </div>
+        </div>
+        <br />
+        <a th:href="@{/address/{id}(id=${entrance.address.id})}">Назад</a>
+    </div>
+<!--/.container-->
+
+<div th:replace="fragments/footer :: footer" />
+
+</body>
+</html>

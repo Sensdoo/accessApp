@@ -50,4 +50,9 @@ public class EntranceRepositoryImpl implements EntranceRepository {
         return entityManager.createNamedQuery("Entrance.findByIdWithComments", Entrance.class)
                 .setParameter("id", id).getSingleResult();
     }
+
+    @Override
+    public Long count() {
+        return entityManager.createNamedQuery("Entrance.count", Long.class).getSingleResult();
+    }
 }

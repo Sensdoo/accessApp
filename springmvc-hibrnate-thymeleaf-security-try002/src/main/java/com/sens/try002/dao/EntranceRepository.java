@@ -14,4 +14,5 @@ public interface EntranceRepository {
     Entrance findById(Long id);
     List<Entrance> findAll();
     Entrance findByIdWithComments(Long id);
+    Long count();
 }

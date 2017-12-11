@@ -14,4 +14,5 @@ public interface EntranceService {
     Entrance findById(Long id);
     Entrance findByIdWithComments(Long id);
     List<Entrance> findAll();
+    Long count();
 }
